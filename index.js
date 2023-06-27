@@ -87,7 +87,7 @@ const result = await dataCollection.find().toArray();
 res.send(result);
    })
 
-   app.get('/carts', verfyJWT, async(req, res) =>{
+   app.get('/carts', verifyJWT, async(req, res) =>{
     const email = req.query.email;
     console.log(email);
     if(!email){
