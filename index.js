@@ -45,6 +45,7 @@ async function run() {
     const usersCollection = client.db("danceDb").collection("users");
     const dataCollection = client.db("danceDb").collection("data");
     const cartCollection = client.db("danceDb").collection("carts");
+    const paymentCollection = client.db("danceDb").collection("payments");
 
 app.post('/jwt', (req, res)=>{
   const user = req.body;
@@ -117,9 +118,10 @@ res.send(result);
     res.send(result);
    })
 
-   app.post('create-payment-intent', async(req, res)=>{
+   app.post('create-payment-intent', verifyJWT, async(req, res)=>{
     const {price} = req.body;
     const amount = price*100;
+    console.log(price, amount);
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
      currency: 'usd',
