@@ -141,6 +141,13 @@ res.send(result);
     res.send({insertResult, deleteResult});
    })
 
+   app.get('/admin-stats', async (req, res)=>{
+    const users = await usersCollection.estimatedDocumentCount();
+    res.send({
+      users
+    })
+   })
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
